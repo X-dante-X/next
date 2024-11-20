@@ -1,0 +1,6 @@
+https://www.zoox.com/
+
+Temat 3
+Komponent tabeli generowanej na podstawie tablic: header, body, footer. W nagłówkach umieszczane są przyciski do sortowania: rosnąco, malejąco i powrót do naturalnego porządku. 
+
+Komponent posiada funkcje collapse - zaznaczone wiersze są ukrywane, a ich w miejscu pojawia się wiersz z przyciskiem do przywrócenia widoczności wierszy.
