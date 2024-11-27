@@ -40,16 +40,23 @@ export default function Profile() {
         <div className="mt-6 text-center">
           <button
             onClick={() => redirect("changepassword")}
-            className="px-6 py-3 w-full bg-red-500 text-white font-semibold rounded-lg hover:bg-red-600 transition duration-300"
+            className="px-6 py-3 w-full bg-red-400 text-white font-semibold rounded-lg hover:bg-red-600 transition duration-300"
           >
             Change Password
           </button>
 
           <button
             onClick={handleDeleteUser}
-            className="px-6 mt-6 py-3 w-full bg-red-500 text-white font-semibold rounded-lg hover:bg-red-600 transition duration-300"
+            className="px-6 mt-6 py-3 w-full bg-red-500 text-white font-semibold rounded-lg hover:bg-red-700 transition duration-300"
           >
             Delete User
+          </button>
+
+          <button
+            onClick={() => redirect("updateprofile")}
+            className="px-6 mt-6 py-3 w-full bg-amber-600 text-white font-semibold rounded-lg hover:bg-amber-800 transition duration-300"
+          >
+            Update Profile
           </button>
         </div>
       </div>

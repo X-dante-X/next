@@ -2,6 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
+import Image from 'next/image';
 import { useAuth } from "@/lib/AuthContext";
 import { signOut } from "firebase/auth";
 import { auth } from "@/lib/firebase";
@@ -22,18 +23,20 @@ function Header() {
           <Link href="/services" className="hover:text-slate-100 transition">
             Services
           </Link>
-          <Link href="/contact" className="hover:text-slate-100 transition">
+          <Link href="/contact" className="hover:text-slate-100 transition ">
             Contact
           </Link>
+
+          <div className="border-l-stone-400 border-l-3 h-6 w-1"/>
 
           {user ? (
             <div className="flex items-center space-x-4">
               <Link href="/user/profile" className="flex items-center space-x-2 hover:text-slate-100 transition">
-                {/* <img
-                    src={user.avatar || "/default-avatar.png"}
+                 <Image src={user?.photoURL || "/avatar.jpg"}
                     alt="Profile"
-                    className="w-8 h-8 rounded-full object-cover"
-                  /> */}
+                    width={32}
+                    height={32}
+                    className="w-8 h-8 rounded-full object-cover" />
                 <span>Profile</span>
               </Link>
               <button

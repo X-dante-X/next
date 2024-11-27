@@ -1,25 +1,42 @@
 'use client'
 import { useState } from 'react';
-import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
-import { useRouter } from 'next/navigation';
+import { createUserWithEmailAndPassword, getAuth, sendEmailVerification } from "firebase/auth";
+import { redirect } from 'next/navigation';
 
 export default function SignUpForm() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
-    const router = useRouter();
 
     const handleSignUp = async (e: React.FormEvent) => {
         e.preventDefault();
         setLoading(true);
         setError(null);
-
+    
+        if (password !== confirmPassword) {
+            setError("Passwords do not match.");
+            setLoading(false);
+            return;
+        }
+    
         const auth = getAuth();
-
+    
         try {
-            await createUserWithEmailAndPassword(auth, email, password);
-            router.push('/user/profile');
+            await createUserWithEmailAndPassword(auth, email, password).then(() => {
+                console.log("User registered!");
+                if (auth.currentUser) {
+                    sendEmailVerification(auth.currentUser)
+                        .then(() => {
+                            console.log("Email verification sent!");
+                            redirect("/user/verify");
+                        });
+                } else {
+                    setError("User not found.");
+                    setLoading(false);
+                }
+            });
         } catch (error) {
             if (error instanceof Error) {
                 setError(error.message);
@@ -30,6 +47,7 @@ export default function SignUpForm() {
             setLoading(false);
         }
     };
+    
 
     return (
         <div className="flex items-center justify-center py-52 bg-gradient-to-r from-indigo-400 via-purple-500 to-pink-600">
@@ -55,6 +73,19 @@ export default function SignUpForm() {
                             type="password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
+                            required
+                            minLength={6}
+                            className="text-slate-950 w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        />
+                    </div>
+
+                    <div>
+                    <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-2">Confirm New Password</label>
+                        <input
+                            id="confirmPassword"
+                            type="password"
+                            value={confirmPassword}
+                            onChange={(e) => setConfirmPassword(e.target.value)}
                             required
                             minLength={6}
                             className="text-slate-950 w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
