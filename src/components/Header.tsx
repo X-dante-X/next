@@ -27,16 +27,19 @@ function Header() {
             Contact
           </Link>
 
-          <div className="border-l-stone-400 border-l-3 h-6 w-1"/>
+          <div className="border-l-stone-400 border-l-3 h-6 w-1" />
 
           {user ? (
             <div className="flex items-center space-x-4">
               <Link href="/user/profile" className="flex items-center space-x-2 hover:text-slate-100 transition">
-                 <Image src={user?.photoURL || "/avatar.jpg"}
-                    alt="Profile"
-                    width={32}
-                    height={32}
-                    className="w-8 h-8 rounded-full object-cover" />
+                <Image
+                  key={user?.photoURL}
+                  src={user?.photoURL || "/avatar.jpg"}
+                  alt="Profile"
+                  width={32}
+                  height={32}
+                  className="w-8 h-8 rounded-full object-cover"
+                />
                 <span>Profile</span>
               </Link>
               <button

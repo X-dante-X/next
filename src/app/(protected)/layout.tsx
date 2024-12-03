@@ -1,13 +1,12 @@
-"use client";
+'use client';
+
 import { useAuth } from "@/lib/AuthContext";
-import { useLayoutEffect } from "react";
+import { PropsWithChildren, useLayoutEffect } from "react";
 import { redirect } from "next/navigation";
 
 function Protected({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: PropsWithChildren) {
   const { user } = useAuth();
 
   useLayoutEffect(() => {
