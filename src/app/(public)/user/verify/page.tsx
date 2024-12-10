@@ -4,6 +4,7 @@ import { useAuth } from "@/lib/AuthContext";
 import { useEffect, useState } from "react";
 import { redirect } from 'next/navigation';
 import { sendEmailVerification } from "firebase/auth";
+import Button from "@/components/Button";
 
 export default function VerifyEmail() {
   const { user } = useAuth(); 
@@ -51,7 +52,7 @@ export default function VerifyEmail() {
             <p className="text-sm text-gray-500 mb-4">
               You can also try resending the verification link.
             </p>
-            <button
+            <Button
               onClick={async () => {
                 setLoading(true);
                 try {
@@ -63,11 +64,10 @@ export default function VerifyEmail() {
                   console.log(err);
                 }
               }}
-              className={`w-full py-3 mt-4 bg-blue-500 text-white font-semibold rounded-lg ${loading ? 'cursor-not-allowed' : 'hover:bg-blue-600'} transition duration-300`}
               disabled={loading}
             >
               {loading ? 'Sending Verification Email...' : 'Resend Verification Email'}
-            </button>
+            </Button>
           </div>
         )}
 

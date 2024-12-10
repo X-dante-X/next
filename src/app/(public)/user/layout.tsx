@@ -1,20 +1,17 @@
-'use client';
+"use client";
 
 import { useAuth } from "@/lib/AuthContext";
 import { redirect } from "next/navigation";
 import { PropsWithChildren, useLayoutEffect } from "react";
 
-export default function User({
-    children,
-  }: PropsWithChildren) {
-    const { user } = useAuth();
-  
-    useLayoutEffect(() => {
-      if (user && user.emailVerified) {
-        redirect(`/user/profile`);
-      }
-    }, [user]);
-  
-    return <>{children}</>;
-  }
-  
+export default function User({ children }: PropsWithChildren) {
+  const { user, isLoading } = useAuth();
+
+  useLayoutEffect(() => {
+    if (user && user.emailVerified && !isLoading) {
+      redirect(`/user/profile`);
+    }
+  }, [user, isLoading]);
+
+  return <>{children}</>;
+}

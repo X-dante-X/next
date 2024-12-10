@@ -1,5 +1,5 @@
 export interface IUserData {
-    city:string,
-    street:string,
-    zipCode:string
+    city: string,
+    street: string,
+    zipCode: string
 }
