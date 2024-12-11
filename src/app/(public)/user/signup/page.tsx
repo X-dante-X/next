@@ -54,8 +54,8 @@ export default function SignUpForm() {
 
   return (
     <div className="flex items-center justify-center py-52 bg-gradient-to-r from-indigo-400 via-purple-500 to-pink-600">
-      <div className="w-full max-w-md bg-white rounded-lg shadow-lg p-8">
-        <h1 className="text-3xl font-semibold text-center text-gray-800 mb-6">Sign Up</h1>
+      <div className="w-full max-w-md bg-stone-950 rounded-lg shadow-lg p-8">
+        <h1 className="text-3xl font-semibold text-center text-slate-200 mb-6">Sign Up</h1>
         <form onSubmit={handleSubmit(handleSignUp)} className="space-y-4">
           
           <InputField

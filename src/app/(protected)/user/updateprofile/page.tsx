@@ -65,8 +65,8 @@ export default function UpdateProfile() {
 
   return (
     <div className="flex items-center justify-center py-52 bg-gradient-to-r from-teal-400 via-blue-500 to-indigo-600">
-      <div className="w-full max-w-md bg-white rounded-lg shadow-lg p-8">
-        <h1 className="text-3xl font-semibold text-center text-gray-800 mb-6">Update Profile</h1>
+      <div className="w-full max-w-md bg-stone-950 rounded-lg shadow-lg p-8">
+        <h1 className="text-3xl font-semibold text-center text-slate-200 mb-6">Update Profile</h1>
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="space-y-6">

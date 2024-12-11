@@ -27,6 +27,7 @@ export default function HeaderUser() {
     return ( <>
      {user ? (
             <div className="flex items-center space-x-4">
+              <Link href="/user/article" className="flex items-center space-x-2 hover:text-slate-100 transition">Article</Link>
               <Link href="/user/profile" className="flex items-center space-x-2 hover:text-slate-100 transition">
                 <Image
                   key={user?.photoURL}

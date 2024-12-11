@@ -63,8 +63,8 @@ export default function ChangePassword() {
 
   return (
     <div className="flex items-center justify-center py-52 bg-gradient-to-r from-green-400 via-blue-500 to-purple-600">
-      <div className="w-full max-w-lg bg-white rounded-lg shadow-lg p-8">
-        <h1 className="text-3xl font-semibold text-center text-gray-800 mb-6">Change Password</h1>
+      <div className="w-full max-w-lg bg-stone-950 rounded-lg shadow-lg p-8">
+        <h1 className="text-3xl font-semibold text-center text-slate-200 mb-6">Change Password</h1>
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="space-y-4">

@@ -15,14 +15,12 @@ const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 
 export function AuthProvider({ children }: PropsWithChildren) {
   const getCurrentUser = (): Promise<User> =>
-    new Promise((resolve, reject) => {
+    new Promise((resolve) => {
       const unsubscribe = onAuthStateChanged(auth, (user) => {
         unsubscribe();
         if (user) {
           resolve(user);
-        } else {
-          reject(new Error("No authenticated user found."));
-        }
+        } 
       });
     });
 

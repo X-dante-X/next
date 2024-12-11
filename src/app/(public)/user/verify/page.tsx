@@ -39,17 +39,17 @@ export default function VerifyEmail() {
 
   return (
     <div className="flex items-center justify-center py-52 bg-gradient-to-r from-indigo-400 via-purple-500 to-pink-600">
-      <div className="w-full max-w-md bg-white rounded-lg shadow-lg p-8">
-        <h1 className="text-3xl font-semibold text-center text-gray-800 mb-6">
+      <div className="w-full max-w-md bg-stone-950 rounded-lg shadow-lg p-8">
+        <h1 className="text-3xl font-semibold text-center text-slate-200 mb-6">
           Email not verified
         </h1>
-        <p className="text-center text-gray-700 mb-6">
+        <p className="text-center text-gray-400 mb-6">
           Please verify your email by clicking the link sent to your address: <strong>{user?.email}</strong>
         </p>
 
         {!isEmailVerified && (
           <div className="text-center">
-            <p className="text-sm text-gray-500 mb-4">
+            <p className="text-sm text-gray-300 mb-4">
               You can also try resending the verification link.
             </p>
             <Button
