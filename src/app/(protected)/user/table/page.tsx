@@ -60,7 +60,7 @@ export default function Table() {
           const firstArticle = querySnapshot.docs[0].data() as IArticle;
           setArticleData(firstArticle);
 
-          let d = [firstArticle, firstArticle, firstArticle, firstArticle, firstArticle];
+          const d = [firstArticle, firstArticle, firstArticle, firstArticle, firstArticle];
           setData(d);
         }
       } catch (error) {

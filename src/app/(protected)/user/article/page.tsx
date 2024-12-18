@@ -3,7 +3,7 @@
 import { SkeletonText } from "@/components/Skeleton";
 import { useAuth } from "@/lib/AuthContext";
 import { db } from "@/lib/firebase";
-import { IArticle } from "@/types/user.types";
+import { IArticle, IArticleData } from "@/types/user.types";
 import { collection, doc, getDocs, query, setDoc, where } from "firebase/firestore";
 import { useEffect, useState } from "react";
 
@@ -43,7 +43,7 @@ export default function Article() {
           console.log("Article created successfully:", newArticleDoc.id);
         } else {
           console.log("Articles already exist.");
-          const firstArticle = querySnapshot.docs[0].data() as any;
+          const firstArticle = querySnapshot.docs[0].data() as IArticleData;
 
           setArticleData({
             content: firstArticle.content,
