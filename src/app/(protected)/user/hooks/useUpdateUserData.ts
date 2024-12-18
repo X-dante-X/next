@@ -6,7 +6,7 @@ import { IUserData } from "@/types/user.types";
 
 export const useUpdateUserData = (currentUserData: IUserData | undefined) => {
     const { user } = useAuth();
-    const [isLoading, setIsUpdating] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     const updateUserData = async (data: IUserData) => {
         if (!user || isLoading) return;
@@ -16,7 +16,7 @@ export const useUpdateUserData = (currentUserData: IUserData | undefined) => {
             data.street !== currentUserData?.street ||
             data.zipCode !== currentUserData?.zipCode
         ) {
-            setIsUpdating(true);
+            setIsLoading(true);
 
             try {
                 await setDoc(doc(db, "users", user.uid), {
@@ -29,7 +29,7 @@ export const useUpdateUserData = (currentUserData: IUserData | undefined) => {
             } catch (error) {
                 console.error("Error updating user data:", error);
             } finally {
-                setIsUpdating(false);
+                setIsLoading(false);
             }
         }
     };

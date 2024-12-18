@@ -3,9 +3,10 @@ import { db } from "@/lib/firebase";
 import { getDoc, doc, setDoc } from "firebase/firestore";
 import { IUserData } from "@/types/user.types";
 
-export const useUserData = (userUid: string) => {
+export const useUserData = (userUid: string | undefined) => {
 
-    const fetchUserData = async (userUid: string): Promise<IUserData> => {
+    const fetchUserData = async (userUid: string ): Promise<IUserData> => {
+
         const userRef = doc(db, "users", userUid);
 
         try {
@@ -38,7 +39,7 @@ export const useUserData = (userUid: string) => {
 
     const { data, isLoading, error } = useQuery<IUserData>({
         queryKey: ["userData", userUid],
-        queryFn: () => fetchUserData(userUid),
+        queryFn: () => fetchUserData(userUid!),
         enabled: !!userUid,
     });
 

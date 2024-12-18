@@ -3,14 +3,14 @@ import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore"
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCcJoqeKeCbJL0ItpNimFnWaDpKyDdUsJQ",
-  authDomain: "next-ddee9.firebaseapp.com",
-  databaseURL: "https://next-ddee9-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "next-ddee9",
-  storageBucket: "next-ddee9.firebasestorage.app",
-  messagingSenderId: "752058742173",
-  appId: "1:752058742173:web:63045d45d58c2f75c6eb74",
-  measurementId: "G-ML3YF3KGWH"
+  apiKey: process.env.NEXT_PUBLIC_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_AUTH_DOMAIN,
+  databaseURL: process.env.NEXT_DATABASE_URL,
+  projectId: process.env.NEXT_PUBLIC_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_APP_ID,
+  measurementId: process.env.NEXT_PUBLIC_MEASUREMENT_ID
 };
 
 const app = initializeApp(firebaseConfig);
