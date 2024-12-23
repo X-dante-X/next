@@ -8,7 +8,7 @@ const priorityOrder: Record<string, number> = {
     high: 2,
 };
 
-const prioritySort: SortingFn<ITask> = (rowA: Row<ITask>, rowB: Row<ITask>, columnId: string) => {
+const prioritySort: SortingFn<ITask> = (rowA: Row<ITask>, rowB: Row<ITask>) => {
     const valueA = priorityOrder[rowA.original.priority!] ?? 0;
     const valueB = priorityOrder[rowB.original.priority!] ?? 0;
 

@@ -6,6 +6,7 @@ import { getAuth } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
+import { FirebaseError } from "firebase/app";
 
 interface FormData {
   email: string;
@@ -32,8 +33,12 @@ export default function SignInForm() {
       await setPersistence(auth, browserSessionPersistence);
       await signInWithEmailAndPassword(auth, email, password);
       router.push("/user/profile");
-    } catch (error: any) {
-      setAuthError(error.message || "An error occurred. Please try again.");
+    } catch (error: unknown) {
+      if (error instanceof FirebaseError) {
+        setAuthError(error.message || "An error occurred. Please try again.");
+      } else {
+        setAuthError("An unknown error occurred. Please try again.");
+      }
     } finally {
       setLoading(false);
     }

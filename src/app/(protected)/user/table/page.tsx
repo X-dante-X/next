@@ -4,7 +4,7 @@ import { useAuth } from "@/lib/AuthContext";
 import { db } from "@/lib/firebase";
 import { ITask } from "@/types/user.types";
 import { ColumnDef, flexRender, getCoreRowModel, getExpandedRowModel, getSortedRowModel, useReactTable } from "@tanstack/react-table";
-import { collection, doc, getDocs, query, setDoc, where } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import Button from "@/components/Button";
 import prioritySort from "./prioritySort";
@@ -80,59 +80,61 @@ export default function Table() {
         console.error("Error updating task:", error);
       }
     }, 444),
-    []
+    [taskService, setDoc]
   );
 
-  const handleFieldUpdate = (taskId: string, field: keyof ITask, value: any) => {
+  const handleFieldUpdate = (taskId: string, field: keyof ITask, value: string | boolean) => {
     setData((prev) => prev.map((task) => (task.id === taskId ? { ...task, [field]: value } : task)));
     debouncedUpdateTask(taskId, { [field]: value });
   };
 
-  const columns = useMemo<ColumnDef<ITask>[]>(
-    () => [
+  const NameCell = ({ row }: { row: { original: ITask; id: string } }) => {
+    const [isEditing, setIsEditing] = useState(false);
+    const [name, setName] = useState(row.original.name);
+
+    const handleSave = () => {
+      if (name !== row.original.name) {
+        handleFieldUpdate(row.id, "name", name);
+      }
+      setIsEditing(false);
+    };
+
+    const handleKeyDown = (e: React.KeyboardEvent) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        handleSave();
+      } else if (e.key === "Escape") {
+        setName(row.original.name);
+        setIsEditing(false);
+      }
+    };
+
+    const handleBlur = () => {
+      if (isEditing) {
+        handleSave();
+      }
+    };
+
+    return isEditing ? (
+      <InputField
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        onKeyDown={handleKeyDown}
+        onBlur={handleBlur}
+        autoFocus
+        className="rounded-none px-0"
+      />
+    ) : (
+      <span onDoubleClick={() => setIsEditing(true)}>{name}</span>
+    );
+  };
+
+  const columns = useMemo<ColumnDef<ITask>[]>(() => {
+    return [
       {
         accessorKey: "name",
         header: "Name",
-        cell: ({ row }) => {
-          const [isEditing, setIsEditing] = useState(false);
-          const [name, setName] = useState(row.original.name);
-
-          const handleSave = () => {
-            if (name !== row.original.name) {
-              handleFieldUpdate(row.id, "name", name);
-            }
-            setIsEditing(false);
-          };
-
-          const handleKeyDown = (e) => {
-            if (e.key === "Enter") {
-              e.preventDefault();
-              handleSave();
-            } else if (e.key === "Escape") {
-              setName(row.original.name);
-              setIsEditing(false);
-            }
-          };
-
-          const handleBlur = () => {
-            if (isEditing) {
-              handleSave();
-            }
-          };
-
-          return isEditing ? (
-            <InputField
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              onKeyDown={handleKeyDown}
-              onBlur={handleBlur}
-              autoFocus
-              className="rounded-none px-0"
-            />
-          ) : (
-            <span onDoubleClick={() => setIsEditing(true)}>{name}</span>
-          );
-        },
+        cell: ({ row }) => <NameCell row={row} />,
       },
       {
         accessorKey: "priority",
@@ -176,9 +178,8 @@ export default function Table() {
           </div>
         ),
       },
-    ],
-    []
-  );
+    ];
+  }, [hiddenRows, NameCell, handleFieldUpdate]);
 
   const table = useReactTable({
     columns,

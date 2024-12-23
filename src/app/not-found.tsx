@@ -14,8 +14,8 @@ export default function NotFound() {
     <div className="flex items-center justify-center py-52 bg-gradient-to-r from-purple-400 via-pink-500 to-red-500">
       <div className="text-center text-white px-24 py-28 opacity-80 shadow-lg rounded-lg">
         <div className="text-lg">404 error</div>
-        <h1 className="text-4xl font-bold mb-4">We can't find that page</h1>
-        <p className="mt-4">Sorry, the page you are looking for doesn't exist or has been moved.</p>
+        <h1 className="text-4xl font-bold mb-4">We can&apos;t find that page</h1>
+        <p className="mt-4">Sorry, the page you are looking for doesn&apos;t exist or has been moved.</p>
 
         <div className="flex items-center mt-6 justify-around">
           <button
