@@ -19,3 +19,20 @@ export interface IArticleData {
     title: string,
     user: DocumentReference
 }
+
+export interface IArticle {
+    content: string,
+    date: Date,
+    title: string,
+    user: DocumentReference
+}
+
+export type TaskPriority = "low" | "medium" | "high"
+
+export interface ITask {
+    id?: string;
+    name: string;
+    priority?: TaskPriority;
+    isCompleted: boolean;
+    user: DocumentReference;
+}

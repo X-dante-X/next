@@ -1,10 +1,10 @@
-'use client'
-import { useState } from 'react';
+"use client";
+import { useState } from "react";
 import { createUserWithEmailAndPassword, getAuth, sendEmailVerification } from "firebase/auth";
-import { redirect } from 'next/navigation';
-import Button from '@/components/Button';
-import InputField from '@/components/InputField';
-import { useForm } from 'react-hook-form';
+import { redirect } from "next/navigation";
+import Button from "@/components/Button";
+import { InputField } from "@/components/InputField";
+import { useForm } from "react-hook-form";
 
 interface FormData {
   email: string;
@@ -13,7 +13,11 @@ interface FormData {
 }
 
 export default function SignUpForm() {
-  const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormData>();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -33,11 +37,10 @@ export default function SignUpForm() {
       await createUserWithEmailAndPassword(auth, data.email, data.password);
       console.log("User registered!");
       if (auth.currentUser) {
-        sendEmailVerification(auth.currentUser)
-          .then(() => {
-            console.log("Email verification sent!");
-            redirect("/user/verify");
-          });
+        sendEmailVerification(auth.currentUser).then(() => {
+          console.log("Email verification sent!");
+          redirect("/user/verify");
+        });
       } else {
         setError("User not found.");
       }
@@ -45,7 +48,7 @@ export default function SignUpForm() {
       if (error instanceof Error) {
         setError(error.message);
       } else {
-        setError('An unknown error occurred');
+        setError("An unknown error occurred");
       }
     } finally {
       setLoading(false);
@@ -56,13 +59,14 @@ export default function SignUpForm() {
     <div className="flex items-center justify-center py-52 bg-gradient-to-r from-indigo-400 via-purple-500 to-pink-600">
       <div className="w-full max-w-md bg-stone-950 rounded-lg shadow-lg p-8">
         <h1 className="text-3xl font-semibold text-center text-slate-200 mb-6">Sign Up</h1>
-        <form onSubmit={handleSubmit(handleSignUp)} className="space-y-4">
-          
+        <form
+          onSubmit={handleSubmit(handleSignUp)}
+          className="space-y-4">
           <InputField
             type="email"
             label="Email"
             id="email"
-            {...register('email', { required: 'Email is required' })}
+            {...register("email", { required: "Email is required" })}
             error={errors.email?.message}
           />
 
@@ -70,24 +74,26 @@ export default function SignUpForm() {
             type="password"
             label="Password"
             id="password"
-            {...register('password', { required: 'Password is required' })}
+            {...register("password", { required: "Password is required" })}
             error={errors.password?.message}
-            placeholder="********"
+            placeholder="Enter your password"
           />
 
           <InputField
             type="password"
             label="Confirm Password"
             id="confirmPassword"
-            {...register('confirmPassword', { required: 'Confirm password is required' })}
+            {...register("confirmPassword", { required: "Confirm password is required" })}
             error={errors.confirmPassword?.message}
-            placeholder="********"
+            placeholder="Confirm your password"
           />
 
           {error && <p className="text-red-500 text-sm">{error}</p>}
 
-          <Button type="submit" disabled={loading}>
-            {loading ? 'Signing up...' : 'Sign Up'}
+          <Button
+            type="submit"
+            disabled={loading}>
+            {loading ? "Signing up..." : "Sign Up"}
           </Button>
         </form>
       </div>

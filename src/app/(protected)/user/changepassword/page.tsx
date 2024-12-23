@@ -4,7 +4,7 @@ import { EmailAuthProvider, reauthenticateWithCredential, updatePassword } from 
 import { useAuth } from "@/lib/AuthContext";
 import { useRouter } from "next/navigation";
 import Button from "@/components/Button";
-import InputField from "@/components/InputField";
+import { InputField } from "@/components/InputField";
 import { useForm } from "react-hook-form";
 
 export default function ChangePassword() {

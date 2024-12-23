@@ -6,23 +6,23 @@ import HeaderUser from "./HeaderUser";
 
 export default function Header() {
   return (
-    <header className="bg-stone-900 text-slate-200 shadow-md">
+    <header className="bg-stone-900 min-h-[10vh] grid text-slate-200 shadow-md">
       <div className="container mx-auto px-4 flex items-center justify-between py-4">
         <Link
           href="/"
-          className="text-2xl font-bold hover:text-slate-100">
+          className="text-2xl font-bold hover:text-gray-400 transition-colors duration-300">
           MyApp
         </Link>
 
         <nav className="flex items-center space-x-6">
           <Link
             href="/user/table"
-            className="hover:text-slate-100 transition">
+            className="hover:text-gray-400 transition-colors duration-300">
             Table
           </Link>
           <Link
             href="/user/article"
-            className="flex items-center space-x-2 hover:text-slate-100 transition">
+            className="flex items-center space-x-2 hover:text-gray-400 transition-colors duration-300">
             Article
           </Link>
 

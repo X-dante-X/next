@@ -1,10 +1,17 @@
+import { useEffect, useState } from "react";
+
 interface SkeletonProps {
   className?: string;
 }
 
 export function SkeletonText({ className }: SkeletonProps) {
-  const width = ["w-14", "w-20", "w-24", "w-28", "w-36"];
-  const randomWidth = width[Math.floor(Math.random() * width.length)];
+  const [randomWidth, setRandomWidth] = useState("w-14");
+
+  useEffect(() => {
+    const width = ["w-14", "w-20", "w-24", "w-28", "w-36"];
+    setRandomWidth(width[Math.floor(Math.random() * width.length)]);
+  }, []);
+
   return <div className={`animate-pulse h-2 bg-gray-200 rounded-lg dark:bg-gray-700 ${randomWidth} ${className}`} />;
 }
 
@@ -13,8 +20,12 @@ export function SkeletonAvatar({ className }: SkeletonProps) {
 }
 
 export function SkeletonField({ className }: SkeletonProps) {
-  const width = ["w-10", "w-14", "w-16", "w-24", "w-28"];
-  const randomWidth = width[Math.floor(Math.random() * width.length)];
+  const [randomWidth, setRandomWidth] = useState("w-10");
+
+  useEffect(() => {
+    const width = ["w-10", "w-14", "w-16", "w-24", "w-28"];
+    setRandomWidth(width[Math.floor(Math.random() * width.length)]);
+  }, []);
 
   return (
     <div>
@@ -24,4 +35,8 @@ export function SkeletonField({ className }: SkeletonProps) {
       <div className={`animate-pulse w-full rounded-lg bg-gray-500 dark:bg-gray-800 border-gray-600 mt-1 h-[46px] ${className}`} />
     </div>
   );
+}
+
+export function SkeletonTable({ className }: SkeletonProps) {
+  return <div className={`animate-pulse w-min-full bg-gray-500 dark:bg-gray-800 border-gray-600 h-64 ${className}`}></div>;
 }

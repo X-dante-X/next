@@ -31,16 +31,16 @@ export default function HeaderUser() {
           {isLoading ? (
             <Link
               href="/user/profile"
-              className="flex items-center space-x-2 hover:text-slate-100 transition">
+              className="flex items-center space-x-2 hover:text-gray-400 transition-colors duration-300">
               <SkeletonAvatar className="w-8 h-8" />
               <span>Profile</span>
             </Link>
           ) : (
             <Link
               href="/user/profile"
-              className="flex items-center space-x-2 hover:text-slate-100 transition">
+              className="flex items-center space-x-2 hover:text-gray-400 transition-colors duration-300">
               <Image
-                key={user?.photoURL}
+                key={user?.photoURL || "/avatar.jpg"}
                 src={user?.photoURL || "/avatar.jpg"}
                 alt="Profile"
                 width={32}

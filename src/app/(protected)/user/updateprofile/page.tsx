@@ -6,7 +6,7 @@ import { getAuth } from "firebase/auth";
 import Image from "next/image";
 import { redirect } from "next/navigation";
 import { useState } from "react";
-import InputField from "@/components/InputField";
+import { InputField } from "@/components/InputField";
 import { IUserData } from "@/types/user.types";
 import DropZone from "@/components/DropZone";
 import Button from "@/components/Button";
@@ -59,6 +59,7 @@ export default function UpdateProfile() {
     if (file) {
       const avatarUrl = URL.createObjectURL(file);
       setAvatar(avatarUrl);
+      localStorage.setItem("userAvatar", avatarUrl);
     }
   };
 

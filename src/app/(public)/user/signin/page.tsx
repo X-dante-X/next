@@ -1,6 +1,6 @@
 "use client";
 import Button from "@/components/Button";
-import InputField from "@/components/InputField";
+import { InputField } from "@/components/InputField";
 import { signInWithEmailAndPassword, setPersistence, browserSessionPersistence } from "firebase/auth";
 import { getAuth } from "firebase/auth";
 import { useRouter } from "next/navigation";
@@ -32,9 +32,8 @@ export default function SignInForm() {
       await setPersistence(auth, browserSessionPersistence);
       await signInWithEmailAndPassword(auth, email, password);
       router.push("/user/profile");
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
-      setAuthError(error!.message || "An error occurred. Please try again.");
+      setAuthError(error.message || "An error occurred. Please try again.");
     } finally {
       setLoading(false);
     }

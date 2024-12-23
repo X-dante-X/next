@@ -13,7 +13,10 @@
     "@tanstack/react-query": "^5.62.3",
     "@tanstack/react-table": "^8.20.5",
     "firebase": "^11.0.2",
-    "next": "^15.0.4",
+    "lodash": "^4.17.21",
+    "lodash.debounce": "^4.0.8",
+    "lucide-react": "^0.468.0",
+    "next": "^15.1.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.54.0"
