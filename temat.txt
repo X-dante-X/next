@@ -1,5 +1,3 @@
-https://www.zoox.com/
-
 Temat 3
 Komponent tabeli generowanej na podstawie tablic: header, body, footer. W nagłówkach umieszczane są przyciski do sortowania: rosnąco, malejąco i powrót do naturalnego porządku. 
 
