@@ -91,6 +91,7 @@ export default function Table() {
   const NameCell = ({ row }: { row: { original: ITask; id: string } }) => {
     const [isEditing, setIsEditing] = useState(false);
     const [name, setName] = useState(row.original.name);
+    const [lastTap, setLastTap] = useState<number | null>(null);
 
     const handleSave = () => {
       if (name !== row.original.name) {
@@ -115,6 +116,18 @@ export default function Table() {
       }
     };
 
+    const handleDoubleClickOrTap = () => {
+      setIsEditing(true);
+    };
+
+    const handleTouchEnd = () => {
+      const now = Date.now();
+      if (lastTap && now - lastTap < 300) {
+        handleDoubleClickOrTap();
+      }
+      setLastTap(now);
+    };
+
     return isEditing ? (
       <InputField
         value={name}
@@ -125,7 +138,11 @@ export default function Table() {
         className="rounded-none px-0"
       />
     ) : (
-      <span onDoubleClick={() => setIsEditing(true)}>{name}</span>
+      <span
+        onDoubleClick={handleDoubleClickOrTap}
+        onTouchEnd={handleTouchEnd}>
+        {name}
+      </span>
     );
   };
 
@@ -198,74 +215,76 @@ export default function Table() {
           {!user || isLoading || !data ? (
             <SkeletonTable />
           ) : (
-            <table className="min-w-full divide-y divide-gray-700">
-              {/* Head */}
-              <thead className="bg-gray-50 dark:bg-gray-800">
-                {table.getHeaderGroups().map((headerGroup) => (
-                  <tr key={headerGroup.id}>
-                    {headerGroup.headers.map((header) => (
-                      <th
-                        className="px-12 py-3.5 text-sm font-normal text-center border border-gray-600 text-gray-500 dark:text-gray-400"
-                        key={header.id}
-                        colSpan={header.colSpan}>
-                        {header.column.getCanSort() ? (
-                          <div
-                            className="cursor-pointer select-none"
-                            onClick={header.column.getToggleSortingHandler()}>
-                            {flexRender(header.column.columnDef.header, header.getContext())}
-                            {header.column.getIsSorted() === "asc" ? " ▲" : header.column.getIsSorted() === "desc" ? " ▼" : null}
-                          </div>
-                        ) : (
-                          flexRender(header.column.columnDef.header, header.getContext())
-                        )}
-                      </th>
-                    ))}
-                  </tr>
-                ))}
-              </thead>
-              {/* Body */}
-              <tbody className="bg-white divide-y divide-gray-700 dark:bg-gray-900">
-                {table.getRowModel().rows.map((row) =>
-                  hiddenRows.has(row.id) ? (
-                    <tr key={`hidden-${row.id}`}>
-                      <td
-                        colSpan={columns.length}
-                        className="py-2 border border-gray-700 text-sm text-center whitespace-nowrap">
-                        <button
-                          className="text-blue-500 duration-300 transition hover:text-blue-400"
-                          onClick={() => toggleRowVisibility(row.id)}>
-                          <Eye />
-                        </button>
-                      </td>
-                    </tr>
-                  ) : (
-                    <tr key={row.id}>
-                      {row.getVisibleCells().map((cell) => (
-                        <td
-                          className="border border-gray-700 text-center text-sm whitespace-nowrap"
-                          key={cell.id}>
-                          {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                        </td>
+            <div className="overflow-x-auto">
+              <table className="min-w-full divide-y divide-gray-700">
+                {/* Head */}
+                <thead className="bg-gray-50 dark:bg-gray-800">
+                  {table.getHeaderGroups().map((headerGroup) => (
+                    <tr key={headerGroup.id}>
+                      {headerGroup.headers.map((header) => (
+                        <th
+                          className="px-12 py-3.5 text-sm font-normal text-center border border-gray-600 text-gray-500 dark:text-gray-400"
+                          key={header.id}
+                          colSpan={header.colSpan}>
+                          {header.column.getCanSort() ? (
+                            <div
+                              className="cursor-pointer select-none"
+                              onClick={header.column.getToggleSortingHandler()}>
+                              {flexRender(header.column.columnDef.header, header.getContext())}
+                              {header.column.getIsSorted() === "asc" ? " ▲" : header.column.getIsSorted() === "desc" ? " ▼" : null}
+                            </div>
+                          ) : (
+                            flexRender(header.column.columnDef.header, header.getContext())
+                          )}
+                        </th>
                       ))}
                     </tr>
-                  )
-                )}
-              </tbody>
-              {/* Foot */}
-              <tfoot>
-                <tr>
-                  <td
-                    colSpan={columns.length}
-                    className="text-center">
-                    <Button
-                      className="rounded-none"
-                      onClick={addTask}>
-                      Add New Task
-                    </Button>
-                  </td>
-                </tr>
-              </tfoot>
-            </table>
+                  ))}
+                </thead>
+                {/* Body */}
+                <tbody className="bg-white divide-y divide-gray-700 dark:bg-gray-900">
+                  {table.getRowModel().rows.map((row) =>
+                    hiddenRows.has(row.id) ? (
+                      <tr key={`hidden-${row.id}`}>
+                        <td
+                          colSpan={columns.length}
+                          className="py-2 border border-gray-700 text-sm text-center whitespace-nowrap">
+                          <button
+                            className="text-blue-500 duration-300 transition hover:text-blue-400"
+                            onClick={() => toggleRowVisibility(row.id)}>
+                            <Eye />
+                          </button>
+                        </td>
+                      </tr>
+                    ) : (
+                      <tr key={row.id}>
+                        {row.getVisibleCells().map((cell) => (
+                          <td
+                            className="border border-gray-700 text-center text-sm whitespace-nowrap"
+                            key={cell.id}>
+                            {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                          </td>
+                        ))}
+                      </tr>
+                    )
+                  )}
+                </tbody>
+                {/* Foot */}
+                <tfoot>
+                  <tr>
+                    <td
+                      colSpan={columns.length}
+                      className="text-center">
+                      <Button
+                        className="rounded-none"
+                        onClick={addTask}>
+                        Add New Task
+                      </Button>
+                    </td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
           )}
         </div>
       </div>

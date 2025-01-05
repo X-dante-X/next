@@ -57,6 +57,7 @@ export default function SignInForm() {
             id="email"
             {...register("email", { required: "Email is required" })}
             error={errors.email?.message}
+            placeholder="Enter your email"
           />
 
           <InputField
@@ -65,6 +66,7 @@ export default function SignInForm() {
             id="password"
             {...register("password", { required: "Password is required" })}
             error={errors.password?.message}
+            placeholder="Enter your password"
           />
 
           {authError && <p className="text-red-600 text-sm text-center">{authError}</p>}

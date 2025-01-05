@@ -68,6 +68,7 @@ export default function SignUpForm() {
             id="email"
             {...register("email", { required: "Email is required" })}
             error={errors.email?.message}
+            placeholder="Enter your email"
           />
 
           <InputField

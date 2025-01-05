@@ -75,7 +75,7 @@ export default function Article() {
           </div>
           <div className="flex justify-between">
             <span className="font-medium text-gray-500">Title:</span>
-            {!user || isLoading || !articleData ? <SkeletonText /> : <span className="text-gray-400">{articleData.content}</span>}
+            {!user || isLoading || !articleData ? <SkeletonText /> : <span className="text-gray-400">{articleData.title}</span>}
           </div>
           <div className="flex justify-between">
             <span className="font-medium text-gray-500">Date:</span>
